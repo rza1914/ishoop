@@ -1,0 +1,13 @@
+{
+  "domain": "ishooop.org",
+  "timestamp": "2025-08-05T01:43:05.712963",
+  "project_structure": {
+    "backend": true,
+    "frontend": true,
+    "requirements": true,
+    "env_file": false
+  },
+  "readiness_score": "275.0%",
+  "issues_count": 0,
+  "warnings_count": 5
+}
