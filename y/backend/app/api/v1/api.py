@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from app.api.v1.endpoints import auth, products, users, orders, reviews, blog
+from app.api.v1.endpoints import currency
 
 api_router = APIRouter()
 api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
@@ -8,3 +9,6 @@ api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(orders.router, prefix="/orders", tags=["orders"])
 api_router.include_router(reviews.router, prefix="/reviews", tags=["reviews"])
 api_router.include_router(blog.router, prefix="/blog", tags=["blog"])
+# معمولاً توی app/api/v1/api.py یا app/main.py
+# اضافه کردن router
+api_router.include_router(currency.router, prefix="/currency", tags=["currency"])

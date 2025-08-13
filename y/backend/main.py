@@ -1,3 +1,4 @@
+# main.py
 from fastapi import FastAPI, HTTPException, status, Depends, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
@@ -9,7 +10,13 @@ import string
 from datetime import datetime
 from typing import List, Optional
 
+# اضافه کردن این خط برای currency endpoint
+from app.api.v1.endpoints import currency
+
 app = FastAPI(title="iShop API", version="1.0.0")
+
+# اضافه کردن currency router
+app.include_router(currency.router, prefix="/api/v1/currency", tags=["currency"])
 
 app.add_middleware(
     CORSMiddleware,
@@ -152,13 +159,13 @@ def init_db():
         # Sample products
         products = [
             ("گوشی Samsung Galaxy S24", "گوشی هوشمند پیشرفته با دوربین فوق‌العاده", 18000000, "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400", 1),
-            ("آیفون 15 پرو", "جدیدترین گوشی اپل با چیپ A17 Pro", 45000000, "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400", 1),
-            ("لپتاپ Dell XPS", "لپتاپ قدرتمند برای کار و بازی", 35000000, "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400", 2),
-            ("مک‌بوک ایر M2", "لپتاپ اپل با چیپ M2", 48000000, "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400", 2),
-            ("هدفون Sony WH-1000XM5", "هدفون بی‌سیم با حذف نویز", 8500000, "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400", 3),
-            ("ایرپادز پرو", "هدفون بی‌سیم اپل", 9500000, "https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=400", 3),
-            ("ساعت Apple Watch Series 9", "ساعت هوشمند اپل", 15000000, "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400", 4),
-            ("ساعت Samsung Galaxy Watch", "ساعت هوشمند سامسونگ", 8000000, "https://images.unsplash.com/photo-1579586337278-3f436f25d4d6?w=400", 4)
+            ("آیفون 15 پرو", "جدیدترین گوشی اپل با چیپ A17 Pro", 45000000, "  https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400", 1),
+            ("لپتاپ Dell XPS", "لپتاپ قدرتمند برای کار و بازی", 35000000, "  https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400", 2),
+            ("مک‌بوک ایر M2", "لپتاپ اپل با چیپ M2", 48000000, "  https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400", 2),
+            ("هدفون Sony WH-1000XM5", "هدفون بی‌سیم با حذف نویز", 8500000, "  https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400", 3),
+            ("ایرپادز پرو", "هدفون بی‌سیم اپل", 9500000, "  https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=400", 3),
+            ("ساعت Apple Watch Series 9", "ساعت هوشمند اپل", 15000000, "  https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400", 4),
+            ("ساعت Samsung Galaxy Watch", "ساعت هوشمند سامسونگ", 8000000, "  https://images.unsplash.com/photo-1579586337278-3f436f25d4d6?w=400", 4)
         ]
         cursor.executemany(
             "INSERT INTO products (name, description, price, image_url, category_id) VALUES (?, ?, ?, ?, ?)",
@@ -184,19 +191,19 @@ def init_db():
                 "راهنمای خرید گوشی هوشمند 2024",
                 "همه چیزی که برای خرید گوشی جدید باید بدانید",
                 "<h2>عوامل مهم در خرید گوشی</h2><p>برای خرید گوشی هوشمند جدید باید به عوامل مختلفی توجه کنید...</p>",
-                "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600"
+                "  https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600"
             ),
             (
                 "مقایسه لپتاپ‌های 2024",
                 "بررسی بهترین لپتاپ‌های سال",
                 "<h2>معیارهای انتخاب لپتاپ</h2><p>برای انتخاب لپتاپ مناسب باید نیازهای خود را بشناسید...</p>",
-                "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600"
+                "  https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600"
             ),
             (
                 "آینده ساعت‌های هوشمند",
                 "نگاهی به تکنولوژی‌های آینده",
                 "<h2>تکنولوژی‌های نوظهور</h2><p>ساعت‌های هوشمند آینده قابلیت‌های شگفت‌انگیزی خواهند داشت...</p>",
-                "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
+                "  https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
             )
         ]
         cursor.executemany(
