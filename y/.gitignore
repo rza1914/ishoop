@@ -38,3 +38,8 @@ Thumbs.db
 
 # Cache files
 *.pyc
+# Node.js / React
+node_modules/
+build/
+npm-debug.log*
+*.tar.gz
