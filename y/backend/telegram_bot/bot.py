@@ -30,22 +30,24 @@ def create_bot():
     
     return application
 
-async def main():
+def main():
     """تابع اصلی بات"""
     try:
         # ایجاد بات
         application = create_bot()
         
         # شروع بات
-        print("🤖 بات تلگرام ایمپورت محصولات در حال اجراست...")
-        print("برای توقف از Ctrl+C استفاده کنید.")
+        print("Telegram Product Importer Bot is running...")
+        print("Use Ctrl+C to stop the bot.")
         
-        await application.run_polling()
+        application.run_polling()
         
+    except KeyboardInterrupt:
+        print("\nBot stopped by user")
     except Exception as e:
         logger.error(f"Error starting bot: {e}")
-        print(f"❌ خطا در اجرای بات: {e}")
+        print(f"Error running bot: {e}")
 
 if __name__ == "__main__":
     # اجرای بات
-    asyncio.run(main())
+    main()

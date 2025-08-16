@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"app\\api\\v1\\endpoints\\auth.py\")",
+      "Bash(rm:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)"
+    ],
+    "defaultMode": "acceptEdits"
+  }
+}
