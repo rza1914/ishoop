@@ -90,7 +90,7 @@ const api = {
     formData.append('username', username);
     formData.append('password', password);
     
-    const response = await fetch(`${API_BASE}/auth/login`, {
+    const response = await fetch(`${API_BASE}/auth/login/form`, {
       method: 'POST',
       body: formData
     });
@@ -719,8 +719,8 @@ const DashboardPage = ({ user }) => {
 
 // --- مودال احراز هویت ---
 const AuthModal = ({ isOpen, onClose, onLogin }) => {
-  const [email, setEmail] = useState('admin@ishop.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   
   const handleSubmit = async (e) => {
@@ -767,7 +767,8 @@ const AuthModal = ({ isOpen, onClose, onLogin }) => {
           </div>
         </form>
         <div className="auth-hint">
-          <p>اطلاعات تست: admin@ishop.com / admin123</p>
+          <p>برای ورود از ایمیل و رمز عبور خود استفاده کنید</p>
+          <small>حساب ادمین: admin@ishop.com / admin123</small>
         </div>
       </div>
     </div>
@@ -1002,7 +1003,15 @@ function App() {
     try {
       const response = await api.login(email, password);
       if (response.access_token) {
-        setUser({ name: 'کاربر', email });
+        // Determine user name based on email
+        let userName = 'کاربر';
+        if (email === 'admin@ishop.com') {
+          userName = 'ادمین سیستم';
+        } else {
+          // Extract name from email
+          userName = email.split('@')[0];
+        }
+        setUser({ name: userName, email, isAdmin: email === 'admin@ishop.com' });
         localStorage.setItem('token', response.access_token);
       }
     } catch (error) {
@@ -1093,14 +1102,13 @@ function App() {
         ) : null;
       
       case 'dashboard':
-        return user ? (
-          <DashboardPage user={user} />
-        ) : (
-          <>
-            {setShowAuthModal(true)}
-            {handlePageChange('home')}
-          </>
-        );
+        if (user) {
+          return <DashboardPage user={user} />;
+        } else {
+          setShowAuthModal(true);
+          setCurrentPage('home');
+          return null;
+        }
       
       default:
         return (

@@ -1,14 +1,61 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import auth, products, users, orders, reviews, blog
-from app.api.v1.endpoints import currency
+from app.api.v1.endpoints import (
+    auth_new as auth,
+    users,
+    products,
+    orders,
+    reviews,
+    blog,
+    currency
+)
 
 api_router = APIRouter()
-api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
-api_router.include_router(products.router, prefix="/products", tags=["products"])
-api_router.include_router(users.router, prefix="/users", tags=["users"])
-api_router.include_router(orders.router, prefix="/orders", tags=["orders"])
-api_router.include_router(reviews.router, prefix="/reviews", tags=["reviews"])
-api_router.include_router(blog.router, prefix="/blog", tags=["blog"])
-# معمولاً توی app/api/v1/api.py یا app/main.py
-# اضافه کردن router
-api_router.include_router(currency.router, prefix="/currency", tags=["currency"])
+
+# Authentication routes
+api_router.include_router(
+    auth.router,
+    prefix="/auth",
+    tags=["authentication"]
+)
+
+# User routes
+api_router.include_router(
+    users.router,
+    prefix="/users",
+    tags=["users"]
+)
+
+# Product routes
+api_router.include_router(
+    products.router,
+    prefix="/products",
+    tags=["products"]
+)
+
+# Order routes
+api_router.include_router(
+    orders.router,
+    prefix="/orders",
+    tags=["orders"]
+)
+
+# Review routes
+api_router.include_router(
+    reviews.router,
+    prefix="/reviews",
+    tags=["reviews"]
+)
+
+# Blog routes
+api_router.include_router(
+    blog.router,
+    prefix="/blog",
+    tags=["blog"]
+)
+
+# Currency routes
+api_router.include_router(
+    currency.router,
+    prefix="/currency",
+    tags=["currency"]
+)
