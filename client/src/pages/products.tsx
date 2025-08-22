@@ -22,12 +22,12 @@ export default function Products() {
     queryKey: ['/api/categories'],
   });
 
-  const filteredProducts = products?.filter((product) => {
+  const filteredProducts = products ? products.filter((product: any) => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.description?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "all" || product.categoryId === selectedCategory;
     return matchesSearch && matchesCategory;
-  }) || [];
+  }) : [];
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
@@ -80,11 +80,11 @@ export default function Products() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">همه دسته‌ها</SelectItem>
-                  {categories?.map((category) => (
+                  {categories ? categories.map((category: any) => (
                     <SelectItem key={category.id} value={category.id}>
                       {category.name}
                     </SelectItem>
-                  ))}
+                  )) : null}
                 </SelectContent>
               </Select>
 

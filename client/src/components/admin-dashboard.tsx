@@ -73,7 +73,7 @@ export default function AdminDashboard() {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-blue-100 text-sm mb-1">کل فروش</p>
-                  <p className="text-2xl font-bold" data-testid="admin-total-sales">{statsData.totalSales}</p>
+                  <p className="text-2xl font-bold" data-testid="admin-total-sales">{(statsData as any)?.totalSales || "۰ تومان"}</p>
                   <p className="text-blue-100 text-xs mt-2">+12% از ماه قبل</p>
                 </div>
                 <BarChart3 className="text-3xl text-blue-200" />
@@ -84,7 +84,7 @@ export default function AdminDashboard() {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-green-100 text-sm mb-1">سفارشات</p>
-                  <p className="text-2xl font-bold" data-testid="admin-total-orders">{statsData.totalOrders.toLocaleString('fa-IR')}</p>
+                  <p className="text-2xl font-bold" data-testid="admin-total-orders">{((statsData as any)?.totalOrders || 0).toLocaleString('fa-IR')}</p>
                   <p className="text-green-100 text-xs mt-2">+8% از ماه قبل</p>
                 </div>
                 <ShoppingCart className="text-3xl text-green-200" />
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-purple-100 text-sm mb-1">کاربران</p>
-                  <p className="text-2xl font-bold" data-testid="admin-total-users">{statsData.totalUsers.toLocaleString('fa-IR')}</p>
+                  <p className="text-2xl font-bold" data-testid="admin-total-users">{((statsData as any)?.totalUsers || 0).toLocaleString('fa-IR')}</p>
                   <p className="text-purple-100 text-xs mt-2">+15% از ماه قبل</p>
                 </div>
                 <Users className="text-3xl text-purple-200" />
@@ -106,7 +106,7 @@ export default function AdminDashboard() {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-orange-100 text-sm mb-1">محصولات</p>
-                  <p className="text-2xl font-bold" data-testid="admin-total-products">{statsData.totalProducts}</p>
+                  <p className="text-2xl font-bold" data-testid="admin-total-products">{(statsData as any)?.totalProducts || 0}</p>
                   <p className="text-orange-100 text-xs mt-2">+5% از ماه قبل</p>
                 </div>
                 <Package className="text-3xl text-orange-200" />
@@ -128,12 +128,12 @@ export default function AdminDashboard() {
             <div className="bg-gray-800 p-6 rounded-2xl">
               <h5 className="text-white text-lg font-semibold mb-4">سفارشات اخیر</h5>
               <div className="space-y-4">
-                {ordersData.length === 0 ? (
+                {(ordersData as any)?.length === 0 ? (
                   <div className="text-gray-400 text-center py-8">
                     سفارش اخیری موجود نیست
                   </div>
                 ) : (
-                  ordersData.map((order: any, index: number) => (
+                  (ordersData as any)?.map((order: any, index: number) => (
                     <div key={index} className="flex justify-between items-center p-3 bg-gray-700 rounded-lg" data-testid={`recent-order-${index}`}>
                       <div>
                         <p className="text-white font-medium" data-testid={`order-customer-${index}`}>

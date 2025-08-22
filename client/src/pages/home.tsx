@@ -33,7 +33,7 @@ export default function Home() {
     reset();
   };
 
-  const featuredProducts = products?.slice(0, 4) || [];
+  const featuredProducts = products ? products.slice(0, 4) : [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
@@ -76,7 +76,7 @@ export default function Home() {
               </div>
             ) : (
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {featuredProducts.map((product, index) => {
+                {featuredProducts.map((product: any, index: number) => {
                   let badge = "";
                   let badgeColor: "red" | "green" | "blue" = "red";
                   

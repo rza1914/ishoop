@@ -1,0 +1,177 @@
+# پرامپت دپلوی فروشگاه آنلاین iShop
+
+## هدف
+آماده‌سازی و دپلوی کامل پلتفرم فروشگاه آنلاین iShop با تمام قابلیت‌های لازم برای یک فروشگاه حرفه‌ای
+
+## مشخصات فنی مورد نیاز
+
+### Frontend (React)
+- ✅ کامپوننت‌های UI مدرن و ریسپانسیو
+- ✅ صفحه اصلی با نمایش محصولات
+- ✅ صفحه جزئیات محصول با تصاویر و توضیحات
+- ✅ سبد خرید با قابلیت افزودن/حذف
+- ✅ صفحه پرداخت و تکمیل سفارش
+- ✅ پنل کاربری برای مشاهده سفارشات
+- ✅ پنل ادمین برای مدیریت محصولات
+- ✅ سیستم جستجو و فیلتر محصولات
+- ✅ تم روشن/تاریک
+- ✅ طراحی موبایل‌فرست
+
+### Backend (Node.js/Express یا Django/FastAPI)
+- ✅ API RESTful برای مدیریت محصولات
+- ✅ سیستم احراز هویت و ثبت‌نام
+- ✅ مدیریت سفارشات و سبد خرید
+- ✅ پنل ادمین برای CRUD محصولات
+- ✅ آپلود و مدیریت تصاویر
+- ✅ سیستم پرداخت (زرین‌پال، پی‌پال و...)
+- ✅ ارسال ایمیل تأیید و اطلاع‌رسانی
+- ✅ لاگ‌گیری و مانیتورینگ
+
+### Database
+- ✅ طراحی جداول User, Product, Order, Cart
+- ✅ ایندکس‌گذاری برای بهینه‌سازی کوئری‌ها
+- ✅ بک‌آپ خودکار
+- ✅ Migration files آماده
+
+### امنیت
+- ✅ HTTPS اجباری
+- ✅ Validation ورودی‌ها
+- ✅ Rate limiting
+- ✅ XSS و CSRF protection
+- ✅ JWT token authentication
+- ✅ Password hashing
+- ✅ Environment variables برای کلیدهای حساس
+
+## مراحل دپلوی
+
+### 1. آماده‌سازی کد
+```bash
+# بهینه‌سازی و build production
+npm run build
+npm run test
+npm audit fix
+```
+
+### 2. تنظیمات سرور
+- انتخاب VPS (دیجیتال اوشن، لینود، ابرآروان)
+- نصب Docker و Docker Compose
+- تنظیم Nginx به عنوان reverse proxy
+- تنظیم SSL certificate (Let's Encrypt)
+
+### 3. Database Setup
+- راه‌اندازی PostgreSQL/MySQL
+- اجرای migration files
+- تنظیم backup روزانه
+- بارگذاری sample data
+
+### 4. Environment Variables
+```env
+DATABASE_URL=...
+JWT_SECRET=...
+PAYMENT_GATEWAY_KEY=...
+EMAIL_SERVICE_CONFIG=...
+TELEGRAM_BOT_TOKEN=...
+```
+
+### 5. CI/CD Pipeline
+- تنظیم GitHub Actions
+- خودکارسازی deploy
+- تست خودکار قبل از انتشار
+
+## ویژگی‌های خاص iShop
+
+### ربات تلگرام
+- ✅ دریافت سفارشات از طریق تلگرام
+- ✅ اطلاع‌رسانی وضعیت سفارش
+- ✅ پاسخگویی خودکار
+
+### پنل ادمین پیشرفته
+- ✅ Dashboard با آمار فروش
+- ✅ مدیریت موجودی
+- ✅ گزارش‌گیری
+- ✅ مدیریت کاربران
+
+### قابلیت‌های UX
+- ✅ Loading states
+- ✅ Error handling مناسب
+- ✅ Animation و transition‌ها
+- ✅ Toast notifications
+- ✅ Progressive Web App (PWA)
+
+## چک‌لیست نهایی قبل از Go Live
+
+### Performance
+- [ ] Page load time < 3 seconds
+- [ ] Image optimization
+- [ ] Caching strategy
+- [ ] CDN setup
+
+### SEO
+- [ ] Meta tags
+- [ ] Sitemap.xml
+- [ ] Robots.txt
+- [ ] Schema markup
+
+### Legal & Compliance
+- [ ] Privacy Policy
+- [ ] Terms of Service
+- [ ] Cookie Policy
+- [ ] GDPR compliance
+
+### Analytics & Monitoring
+- [ ] Google Analytics
+- [ ] Error tracking (Sentry)
+- [ ] Uptime monitoring
+- [ ] Performance monitoring
+
+## پس از دپلوی
+
+### نگهداری
+- [ ] Backup روزانه
+- [ ] Security updates
+- [ ] Performance monitoring
+- [ ] User feedback analysis
+
+### Marketing
+- [ ] Google Search Console
+- [ ] Social media integration
+- [ ] Email marketing setup
+- [ ] Customer support system
+
+## ساختار نهایی فایل‌ها
+```
+ishop/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   ├── build/
+│   └── package.json
+├── backend/
+│   ├── api/
+│   ├── models/
+│   ├── middleware/
+│   └── package.json
+├── database/
+│   ├── migrations/
+│   └── seeds/
+├── docker-compose.yml
+├── nginx.conf
+└── deploy.sh
+```
+
+## Commands آماده دپلوی
+```bash
+# Build و آماده‌سازی
+./build.sh
+
+# Deploy به سرور
+./deploy.sh production
+
+# Health check
+./health-check.sh
+
+# Rollback در صورت مشکل
+./rollback.sh
+```
+
+این فروشگاه آماده ارائه خدمات به هزاران کاربر همزمان خواهد بود.

@@ -123,7 +123,8 @@ export class MemStorage implements IStorage {
     
     products.forEach(prod => {
       this.products.set(prod.id, { 
-        ...prod, 
+        ...prod,
+        originalPrice: prod.originalPrice || null,
         createdAt: new Date(), 
         updatedAt: new Date() 
       });
@@ -180,7 +181,8 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const newCategory: Category = { 
       ...category, 
-      id, 
+      id,
+      description: category.description || null,
       createdAt: new Date() 
     };
     this.categories.set(id, newCategory);
@@ -204,10 +206,16 @@ export class MemStorage implements IStorage {
   async createProduct(product: InsertProduct): Promise<Product> {
     const id = randomUUID();
     const newProduct: Product = { 
-      ...product, 
+      ...product,
       id,
+      description: product.description || null,
+      originalPrice: product.originalPrice || null,
+      currency: product.currency || null,
+      categoryId: product.categoryId || null,
+      imageUrl: product.imageUrl || null,
       stock: product.stock || 0,
       isActive: true,
+      tags: product.tags || null,
       createdAt: new Date(),
       updatedAt: new Date() 
     };
@@ -254,8 +262,11 @@ export class MemStorage implements IStorage {
   async createOrder(order: InsertOrder): Promise<Order> {
     const id = randomUUID();
     const newOrder: Order = { 
-      ...order, 
+      ...order,
       id,
+      userId: order.userId || null,
+      customerEmail: order.customerEmail || null,
+      customerPhone: order.customerPhone || null,
       status: "pending",
       createdAt: new Date(),
       updatedAt: new Date() 
