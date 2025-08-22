@@ -1,0 +1,843 @@
+# ساخت فروشگاه آیشاپ - پلتفرم خرید از دبی 🇦🇪 و ارسال به ایران 🇮🇷
+
+## مشخصات پروژه
+**نام:** آیـشــــــــــــــــــاپ (#آیـشــــــــــــــــــاپ)  
+**هدف:** فروشگاه آنلاین برای خرید محصولات از #دبــــــــــــی و ارسال به تمام نقاط #ایران  
+**پلتفرم:** GitHub Repository + Replit/Vercel Deployment  
+**License:** MIT
+
+---
+
+## Technology Stack
+
+### Frontend
+- **React.js** با TypeScript
+- **Tailwind CSS** برای styling
+- **Lucide React** برای آیکون‌ها
+- **React Router** برای navigation
+- **Context API** برای state management
+
+### Backend
+- **FastAPI** با Python
+- **SQLAlchemy** + **PostgreSQL** برای database
+- **JWT** برای authentication
+- **Python-multipart** برای upload فایل‌ها
+- **FastMail** برای ارسال ایمیل
+- **Pydantic** برای validation
+
+### External APIs
+- **Google OAuth** برای ثبت‌نام با گوگل
+- **Telegram Bot API** برای OTP و ایمپورت محصولات
+- **Payment Gateway** (ZarinPal یا بانک ملت)
+
+---
+
+## ویژگی‌های اساسی ضروری
+
+### 🔐 سیستم احراز هویت
+```javascript
+// دو روش ثبت‌نام:
+1. Google OAuth
+2. OTP تلگرام
+```
+
+### 👤 پنل کاربر
+- مشاهده سفارشات
+- ویرایش پروفایل
+- تاریخچه خریدها
+- آدرس‌های ارسال
+- وضعیت سفارشات
+
+### 🛍 سبد خرید
+- افزودن/حذف محصولات
+- تغییر تعداد
+- محاسبه هزینه ارسال
+- کد تخفیف
+- ذخیره سبد برای بعداً
+
+### 🛒 صفحه چک اوت
+- انتخاب آدرس ارسال
+- روش پرداخت
+- محاسبه نهایی قیمت
+- تأیید سفارش
+
+### 📱 محصولات و جزئیات
+- نمایش محصولات با فیلتر
+- صفحه جزئیات کامل
+- گالری تصاویر
+- نظرات کاربران
+- محصولات مشابه
+
+---
+
+## ویژگی‌های مدیریتی
+
+### 🔧 پنل ادمین (دسترسی محدود)
+```javascript
+// محدودیت‌های امنیتی:
+- فقط با ایمیل‌های مشخص شده
+- نمی‌تون از سایت عمومی ثبت‌نام کرد
+- نیاز به تأیید دستی سوپرادمین
+```
+
+**قابلیت‌های پنل ادمین:**
+- مدیریت محصولات (CRUD)
+- مدیریت سفارشات
+- مدیریت کاربران
+- آمار و گزارشات
+- تنظیمات سایت
+
+### 🤖 بات تلگرام ایمپورت
+```javascript
+// قابلیت‌های بات:
+- ایمپورت مستقیم محصولات
+- دریافت تصاویر و مشخصات
+- تنظیم قیمت و موجودی
+- اطلاع‌رسانی سفارشات جدید
+```
+
+---
+
+## ساختار فایل‌ها در Replit
+
+```
+ishop-replit/
+├── frontend/
+│   ├── public/
+│   │   ├── index.html
+│   │   └── favicon.ico
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── common/
+│   │   │   │   ├── Header.tsx
+│   │   │   │   ├── Footer.tsx
+│   │   │   │   └── Loading.tsx
+│   │   │   ├── auth/
+│   │   │   │   ├── Login.tsx
+│   │   │   │   ├── GoogleAuth.tsx
+│   │   │   │   └── TelegramOTP.tsx
+│   │   │   ├── shop/
+│   │   │   │   ├── ProductList.tsx
+│   │   │   │   ├── ProductDetail.tsx
+│   │   │   │   ├── Cart.tsx
+│   │   │   │   └── Checkout.tsx
+│   │   │   ├── user/
+│   │   │   │   ├── Dashboard.tsx
+│   │   │   │   ├── Orders.tsx
+│   │   │   │   └── Profile.tsx
+│   │   │   └── admin/
+│   │   │       ├── AdminDashboard.tsx
+│   │   │       ├── ProductManager.tsx
+│   │   │       ├── OrderManager.tsx
+│   │   │       └── UserManager.tsx
+│   │   ├── context/
+│   │   │   ├── AuthContext.tsx
+│   │   │   └── CartContext.tsx
+│   │   ├── pages/
+│   │   │   ├── Home.tsx
+│   │   │   ├── Shop.tsx
+│   │   │   └── About.tsx
+│   │   ├── utils/
+│   │   │   ├── api.ts
+│   │   │   └── helpers.ts
+│   │   └── App.tsx
+│   ├── package.json
+│   └── tailwind.config.js
+├── backend/
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   ├── models/
+│   │   │   ├── __init__.py
+│   │   │   ├── user.py
+│   │   │   ├── product.py
+│   │   │   ├── order.py
+│   │   │   └── cart.py
+│   │   ├── schemas/
+│   │   │   ├── __init__.py
+│   │   │   ├── user.py
+│   │   │   ├── product.py
+│   │   │   ├── order.py
+│   │   │   └── cart.py
+│   │   ├── routers/
+│   │   │   ├── __init__.py
+│   │   │   ├── auth.py
+│   │   │   ├── products.py
+│   │   │   ├── orders.py
+│   │   │   └── admin.py
+│   │   ├── services/
+│   │   │   ├── __init__.py
+│   │   │   ├── auth_service.py
+│   │   │   ├── product_service.py
+│   │   │   ├── telegram_bot.py
+│   │   │   ├── google_auth.py
+│   │   │   └── payment_service.py
+│   │   ├── middleware/
+│   │   │   ├── __init__.py
+│   │   │   ├── auth.py
+│   │   │   └── admin_auth.py
+│   │   └── utils/
+│   │       ├── __init__.py
+│   │       ├── security.py
+│   │       └── helpers.py
+│   ├── requirements.txt
+│   └── alembic/
+│       ├── env.py
+│       └── versions/
+├── telegram-bot/
+│   ├── bot.py
+│   ├── config.py
+│   ├── commands/
+│   │   ├── __init__.py
+│   │   ├── import_products.py
+│   │   └── notifications.py
+│   ├── handlers/
+│   │   ├── __init__.py
+│   │   ├── product_handler.py
+│   │   └── order_handler.py
+│   └── requirements.txt
+├── .env
+├── package.json
+└── replit.nix
+```
+
+---
+
+## امنیت و محدودیت‌های ادمین
+
+### 🛡 تنظیمات امنیتی
+```python
+# محدودیت دسترسی ادمین
+ADMIN_EMAILS = [
+    'admin@ishop.com',
+    'manager@ishop.com'
+]
+
+# چک کردن دسترسی ادمین
+from fastapi import HTTPException, Depends
+from app.middleware.auth import get_current_user
+
+def admin_required(current_user = Depends(get_current_user)):
+    if current_user.email not in ADMIN_EMAILS:
+        raise HTTPException(
+            status_code=403, 
+            detail="دسترسی غیرمجاز - فقط ادمین‌های تأیید شده"
+        )
+    return current_user
+```
+
+---
+
+## UI/UX Design Specifications
+
+### 🎨 طراحی
+- **رنگ‌بندی:** آبی، طلایی (تم دبی)
+- **فونت:** فارسی: Vazir، انگلیسی: Inter
+- **طراحی:** مدرن، کلین، موبایل فرست
+- **انیمیشن:** Smooth transitions
+
+### 📱 Responsive Design
+- Mobile: 320px - 768px
+- Tablet: 768px - 1024px  
+- Desktop: 1024px+
+
+---
+
+## ویژگی‌های خاص آیشاپ
+
+### 🌟 صفحه اصلی
+```html
+<!-- Hero Section -->
+<section class="hero">
+  <h1>آیـشــــــــــــــــــاپ</h1>
+  <p>هر چی دلت بخاد رو با قیمت مناسب از #دبــــــــــــی خرید کن</p>
+  <p>هر جا #ایران هستی تحویل بگیر 🛍</p>
+</section>
+```
+
+### 🚚 محاسبه هزینه ارسال
+- ارسال رایگان بالای مبلغ مشخص
+- محاسبه بر اساس وزن و حجم
+- زمان تحویل: 7-14 روز کاری
+
+### 💳 پرداخت
+- زرین‌پال
+- درگاه بانک‌های ایرانی
+- پرداخت در محل (COD)
+
+---
+
+## Environment Variables (.env)
+```env
+# Database
+DATABASE_URL=your_database_url
+MONGODB_URI=your_mongodb_uri
+
+# JWT
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRE=30d
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# Telegram Bot
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+
+# Payment
+ZARINPAL_MERCHANT_ID=your_merchant_id
+
+# Admin Settings
+ADMIN_EMAILS=admin1@email.com,admin2@email.com
+SUPER_ADMIN_EMAIL=superadmin@email.com
+
+# Email Service
+EMAIL_SERVICE=gmail
+EMAIL_USER=your_email
+EMAIL_PASS=your_password
+```
+
+---
+
+## Commands برای اجرا در Replit
+
+### Setup
+```bash
+# Backend
+cd backend && pip install -r requirements.txt
+
+# Frontend  
+cd frontend && npm install
+
+# Bot
+cd telegram-bot && pip install -r requirements.txt
+```
+
+### Development
+```bash
+# Run all services
+npm run dev
+
+# Individual services
+npm run backend    # uvicorn app.main:app --reload
+npm run frontend   # npm start
+npm run bot        # python bot.py
+```
+
+---
+
+## Package.json اصلی
+```json
+{
+  "name": "ishop-dubai-iran",
+  "version": "1.0.0",
+  "description": "فروشگاه آیشاپ - خرید از دبی، ارسال به ایران",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\" \"npm run bot\"",
+    "backend": "cd backend && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "frontend": "cd frontend && npm start",
+    "bot": "cd telegram-bot && python bot.py",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
+```
+
+---
+
+## Requirements.txt برای Backend
+```txt
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.7
+alembic==1.13.0
+pydantic==2.5.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+fastapi-mail==1.4.1
+python-telegram-bot==20.7
+httpx==0.25.2
+python-dotenv==1.0.0
+Pillow==10.1.0
+```
+
+---
+
+## 🎯 اهداف نهایی
+1. **کاربر:** تجربه خرید آسان از دبی
+2. **ادمین:** مدیریت کامل فروشگاه
+3. **امنیت:** محافظت از داده‌ها و محدودیت دسترسی
+4. **Performance:** سرعت بالا و UX عالی
+5. **Scalability:** قابلیت گسترش برای آینده
+
+این فروشگاه باید آماده پردازش هزاران سفارش روزانه و ارائه بهترین تجربه خرید آنلاین از دبی برای مشتریان ایرانی باشد! 🚀
+
+---
+
+## 📁 GitHub Repository Setup
+
+### Repository Structure
+```
+ishop-dubai-iran/
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml
+│   │   ├── cd.yml
+│   │   └── security.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── feature_request.md
+│   │   └── question.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── CODEOWNERS
+├── docs/
+│   ├── README.md
+│   ├── API.md
+│   ├── DEPLOYMENT.md
+│   ├── CONTRIBUTING.md
+│   └── CHANGELOG.md
+├── scripts/
+│   ├── setup.sh
+│   ├── deploy.sh
+│   └── backup.sh
+├── .gitignore
+├── .env.example
+├── docker-compose.yml
+├── LICENSE
+└── README.md
+```
+
+---
+
+## 📝 README.md Template
+
+```markdown
+# آیـشــــــــــــــــــاپ 🛍️
+### فروشگاه آنلاین خرید از دبی و ارسال به ایران
+
+[![CI/CD](https://github.com/username/ishop-dubai-iran/actions/workflows/ci.yml/badge.svg)](https://github.com/username/ishop-dubai-iran/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
+[![React](https://img.shields.io/badge/React-18+-61DAFB.svg)](https://reactjs.org)
+
+## 🌟 ویژگی‌ها
+
+- ✅ خرید آسان محصولات از دبی
+- ✅ ارسال به تمام نقاط ایران
+- ✅ پنل ادمین پیشرفته
+- ✅ بات تلگرام برای ایمپورت محصولات
+- ✅ پرداخت امن با درگاه‌های ایرانی
+- ✅ طراحی ریسپانسیو و مدرن
+
+## 🚀 نصب سریع
+
+### پیش‌نیازها
+- Python 3.11+
+- Node.js 18+
+- PostgreSQL
+- Redis (اختیاری)
+
+### کلون و نصب
+\`\`\`bash
+git clone https://github.com/username/ishop-dubai-iran.git
+cd ishop-dubai-iran
+./scripts/setup.sh
+\`\`\`
+
+### اجرای محیط توسعه
+\`\`\`bash
+# همه سرویس‌ها
+npm run dev
+
+# جداگانه
+npm run backend   # FastAPI
+npm run frontend  # React
+npm run bot       # Telegram Bot
+\`\`\`
+
+## 📖 مستندات
+
+- [📋 راهنمای API](docs/API.md)
+- [🚀 راهنمای دپلوی](docs/DEPLOYMENT.md)
+- [🤝 مشارکت در پروژه](docs/CONTRIBUTING.md)
+- [📝 تاریخچه تغییرات](docs/CHANGELOG.md)
+
+## 🤝 مشارکت
+
+لطفاً [راهنمای مشارکت](CONTRIBUTING.md) را مطالعه کنید.
+
+## 📄 لایسنس
+
+این پروژه تحت لایسنس MIT منتشر شده است - جزئیات در [LICENSE](LICENSE) موجود است.
+
+## 📞 پشتیبانی
+
+- 📧 Email: support@ishop.com
+- 💬 Telegram: @ishop_support
+- 🐛 Issues: [GitHub Issues](https://github.com/username/ishop-dubai-iran/issues)
+```
+
+---
+
+## ⚙️ GitHub Actions (CI/CD)
+
+### .github/workflows/ci.yml
+```yaml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ishop_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        cd backend
+        pip install -r requirements.txt
+        
+    - name: Run tests
+      run: |
+        cd backend
+        pytest
+        
+    - name: Code coverage
+      run: |
+        cd backend
+        pytest --cov=app --cov-report=xml
+        
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+        
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+        
+    - name: Run tests
+      run: |
+        cd frontend
+        npm test -- --coverage --watchAll=false
+        
+    - name: Build
+      run: |
+        cd frontend
+        npm run build
+
+  deploy:
+    needs: [test-backend, test-frontend]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to production
+      run: |
+        echo "Deploying to production..."
+        # Add deployment commands here
+```
+
+### .github/workflows/security.yml
+```yaml
+name: Security Scan
+
+on:
+  push:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 2 * * 1'  # Weekly on Monday
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run Snyk security scan
+      uses: snyk/actions/python@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --severity-threshold=high
+        
+    - name: Run npm audit
+      run: |
+        cd frontend
+        npm audit --audit-level=high
+```
+
+---
+
+## 📋 Issue Templates
+
+### .github/ISSUE_TEMPLATE/bug_report.md
+```markdown
+---
+name: گزارش باگ
+about: گزارش مشکل برای بهبود پروژه
+title: '[BUG] '
+labels: bug
+assignees: ''
+---
+
+## توضیح باگ
+توضیح واضح و مختصر از مشکل.
+
+## مراحل بازتولید
+مراحل بازتولید رفتار:
+1. برو به '...'
+2. کلیک کن روی '....'
+3. اسکرول کن پایین تا '....'
+4. مشکل رو ببین
+
+## رفتار مورد انتظار
+توضیح واضح از چیزی که انتظار داشتی اتفاق بیفته.
+
+## اسکرین‌شات
+اگر امکانش هست، اسکرین‌شات اضافه کن.
+
+## محیط:
+ - OS: [e.g. iOS]
+ - Browser [e.g. chrome, safari]
+ - Version [e.g. 22]
+
+## اطلاعات اضافی
+هر اطلاعات اضافی در مورد مشکل.
+```
+
+### .github/ISSUE_TEMPLATE/feature_request.md
+```markdown
+---
+name: درخواست ویژگی
+about: پیشنهاد ایده برای این پروژه
+title: '[FEATURE] '
+labels: enhancement
+assignees: ''
+---
+
+## آیا درخواست ویژگی شما مربوط به مشکلی است؟
+توضیح واضح و مختصر از مشکل. مثال: همیشه ناراحت می‌شوم وقتی [...]
+
+## راه‌حل پیشنهادی شما
+توضیح واضح و مختصر از چیزی که می‌خوای اتفاق بیفته.
+
+## جایگزین‌هایی که در نظر گرفتی
+توضیح واضح و مختصر از هر راه‌حل یا ویژگی جایگزین که بهشون فکر کردی.
+
+## اطلاعات اضافی
+هر اطلاعات اضافی یا اسکرین‌شات در مورد درخواست ویژگی.
+```
+
+---
+
+## 🔧 Development Workflow
+
+### Git Branch Strategy
+```bash
+# Main branches
+main        # Production ready
+develop     # Development integration
+hotfix/*    # Emergency fixes
+feature/*   # New features
+release/*   # Release preparation
+
+# Example workflow
+git checkout develop
+git checkout -b feature/telegram-bot-import
+# ... development ...
+git push origin feature/telegram-bot-import
+# Create PR to develop
+```
+
+### Commit Message Convention
+```bash
+# Types: feat, fix, docs, style, refactor, test, chore
+feat: اضافه کردن قابلیت ایمپورت محصولات از تلگرام
+fix: رفع باگ محاسبه هزینه ارسال
+docs: به‌روزرسانی مستندات API
+```
+
+---
+
+## 🚀 Deployment Options
+
+### 1. Vercel (Frontend)
+```json
+// vercel.json
+{
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://your-backend.com/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
+    }
+  ]
+}
+```
+
+### 2. Railway (Backend)
+```toml
+# railway.toml
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+
+[[services]]
+name = "ishop-backend"
+```
+
+### 3. Docker Deployment
+```dockerfile
+# backend/Dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+```dockerfile
+# frontend/Dockerfile  
+FROM node:18-alpine
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=0 /app/build /usr/share/nginx/html
+```
+
+---
+
+## 📊 Monitoring & Analytics
+
+### Health Check Endpoints
+```python
+# backend/app/routers/health.py
+@router.get("/health")
+async def health_check():
+    return {
+        "status": "healthy",
+        "timestamp": datetime.utcnow(),
+        "version": "1.0.0"
+    }
+```
+
+### Performance Monitoring
+```python
+# Sentry integration
+import sentry_sdk
+from sentry_sdk.integrations.fastapi import FastApiIntegration
+
+sentry_sdk.init(
+    dsn=settings.SENTRY_DSN,
+    integrations=[FastApiIntegration()],
+)
+```
+
+---
+
+## 🔐 Security Checklist
+
+- [ ] Environment variables در .env.example
+- [ ] Secrets در GitHub Settings > Secrets
+- [ ] CORS تنظیم شده
+- [ ] Rate limiting فعال
+- [ ] Input validation با Pydantic
+- [ ] SQL injection محافظت
+- [ ] XSS محافظت
+- [ ] HTTPS اجباری
+- [ ] Security headers
+- [ ] JWT token expiration
+
+---
+
+## 📈 Performance Optimization
+
+### Backend Optimization
+```python
+# Caching with Redis
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+
+@app.on_event("startup")
+async def startup():
+    redis = aioredis.from_url("redis://localhost")
+    FastAPICache.init(RedisBackend(redis), prefix="ishop-cache")
+```
+
+### Frontend Optimization
+```javascript
+// Code splitting
+const AdminPanel = lazy(() => import('./components/admin/AdminPanel'));
+
+// Image optimization
+import { Image } from 'next/image';
+```
