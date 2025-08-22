@@ -6,10 +6,18 @@ import { z } from "zod";
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+  password: text("password"),
   email: text("email").notNull().unique(),
+  firstName: text("first_name"),
+  lastName: text("last_name"),
+  profileImageUrl: text("profile_image_url"),
+  phone: text("phone"),
   role: text("role").notNull().default("user"),
+  isVerified: boolean("is_verified").default(false),
+  googleId: text("google_id"),
+  telegramId: text("telegram_id"),
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 export const categories = pgTable("categories", {
@@ -49,10 +57,27 @@ export const orders = pgTable("orders", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Auth schemas
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
   email: true,
+  firstName: true,
+  lastName: true,
+  phone: true,
+});
+
+export const googleAuthSchema = createInsertSchema(users).pick({
+  email: true,
+  firstName: true,
+  lastName: true,
+  profileImageUrl: true,
+  googleId: true,
+});
+
+export const telegramAuthSchema = createInsertSchema(users).pick({
+  phone: true,
+  telegramId: true,
 });
 
 export const insertCategorySchema = createInsertSchema(categories).pick({

@@ -6,7 +6,10 @@ export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getUserByGoogleId(googleId: string): Promise<User | undefined>;
+  getUserByTelegramId(telegramId: string): Promise<User | undefined>;
+  createUser(user: any): Promise<User>;
+  updateUser(id: string, updates: any): Promise<User | undefined>;
   
   // Categories
   getCategories(): Promise<Category[]>;
@@ -157,16 +160,42 @@ export class MemStorage implements IStorage {
     );
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
+  async getUserByGoogleId(googleId: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(
+      (user) => user.googleId === googleId,
+    );
+  }
+
+  async getUserByTelegramId(telegramId: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(
+      (user) => user.telegramId === telegramId,
+    );
+  }
+
+  async createUser(insertUser: any): Promise<User> {
     const id = randomUUID();
     const user: User = { 
       ...insertUser, 
       id, 
-      role: "user",
-      createdAt: new Date() 
+      role: insertUser.role || "user",
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
     this.users.set(id, user);
     return user;
+  }
+
+  async updateUser(id: string, updates: any): Promise<User | undefined> {
+    const user = this.users.get(id);
+    if (!user) return undefined;
+    
+    const updatedUser: User = { 
+      ...user, 
+      ...updates, 
+      updatedAt: new Date() 
+    };
+    this.users.set(id, updatedUser);
+    return updatedUser;
   }
 
   async getCategories(): Promise<Category[]> {
