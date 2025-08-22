@@ -43,12 +43,12 @@ export default function AdminDashboard() {
         </div>
         
         {/* Dashboard Preview */}
-        <div className="glass-dark rounded-3xl p-8 bg-gray-900">
+        <div className="dubai-card rounded-3xl p-10 bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 backdrop-blur-2xl border border-gold/20 shadow-2xl">
           {/* Dashboard Header */}
           <div className="flex justify-between items-center mb-8 text-white">
             <div>
-              <h4 className="text-2xl font-bold mb-2">داشبورد مدیریت</h4>
-              <p className="text-gray-400">آمار کلی فروشگاه</p>
+              <h4 className="text-3xl font-bold mb-3 bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 bg-clip-text text-transparent floating-animation">✨ داشبورد مدیریت لوکس ✨</h4>
+              <p className="text-gray-300 text-lg">📊 آمار کلی فروشگاه درجه یک 📊</p>
             </div>
             <div className="flex space-x-4 space-x-reverse">
               <Select defaultValue="7days">
@@ -68,48 +68,48 @@ export default function AdminDashboard() {
           </div>
           
           {/* Stats Cards */}
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-2xl text-white">
+          <div className="grid md:grid-cols-4 gap-8 mb-10">
+            <div className="dubai-card bg-gradient-to-br from-blue-500/90 to-blue-700/90 p-8 rounded-3xl text-white shadow-2xl border border-blue-400/20 pulse-glow">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-blue-100 text-sm mb-1">کل فروش</p>
-                  <p className="text-2xl font-bold" data-testid="admin-total-sales">{(statsData as any)?.totalSales || "۰ تومان"}</p>
-                  <p className="text-blue-100 text-xs mt-2">+12% از ماه قبل</p>
+                  <p className="text-blue-100 text-sm mb-2 font-medium">💰 کل فروش</p>
+                  <p className="text-3xl font-bold" data-testid="admin-total-sales">{(statsData as any)?.totalSales || "۰ تومان"}</p>
+                  <p className="text-blue-100 text-xs mt-3 bg-blue-400/20 px-2 py-1 rounded-full">📈 +12% از ماه قبل</p>
                 </div>
-                <BarChart3 className="text-3xl text-blue-200" />
+                <BarChart3 className="text-4xl text-blue-200 floating-animation" />
               </div>
             </div>
             
-            <div className="bg-gradient-to-r from-green-500 to-green-600 p-6 rounded-2xl text-white">
+            <div className="dubai-card bg-gradient-to-br from-green-500/90 to-emerald-700/90 p-8 rounded-3xl text-white shadow-2xl border border-green-400/20 pulse-glow">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-green-100 text-sm mb-1">سفارشات</p>
-                  <p className="text-2xl font-bold" data-testid="admin-total-orders">{((statsData as any)?.totalOrders || 0).toLocaleString('fa-IR')}</p>
-                  <p className="text-green-100 text-xs mt-2">+8% از ماه قبل</p>
+                  <p className="text-green-100 text-sm mb-2 font-medium">📦 سفارشات</p>
+                  <p className="text-3xl font-bold" data-testid="admin-total-orders">{((statsData as any)?.totalOrders || 0).toLocaleString('fa-IR')}</p>
+                  <p className="text-green-100 text-xs mt-3 bg-green-400/20 px-2 py-1 rounded-full">📈 +8% از ماه قبل</p>
                 </div>
-                <ShoppingCart className="text-3xl text-green-200" />
+                <ShoppingCart className="text-4xl text-green-200 floating-animation" />
               </div>
             </div>
             
-            <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-6 rounded-2xl text-white">
+            <div className="dubai-card bg-gradient-to-br from-purple-500/90 to-purple-700/90 p-8 rounded-3xl text-white shadow-2xl border border-purple-400/20 pulse-glow">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-purple-100 text-sm mb-1">کاربران</p>
-                  <p className="text-2xl font-bold" data-testid="admin-total-users">{((statsData as any)?.totalUsers || 0).toLocaleString('fa-IR')}</p>
-                  <p className="text-purple-100 text-xs mt-2">+15% از ماه قبل</p>
+                  <p className="text-purple-100 text-sm mb-2 font-medium">👥 کاربران</p>
+                  <p className="text-3xl font-bold" data-testid="admin-total-users">{((statsData as any)?.totalUsers || 0).toLocaleString('fa-IR')}</p>
+                  <p className="text-purple-100 text-xs mt-3 bg-purple-400/20 px-2 py-1 rounded-full">📈 +15% از ماه قبل</p>
                 </div>
-                <Users className="text-3xl text-purple-200" />
+                <Users className="text-4xl text-purple-200 floating-animation" />
               </div>
             </div>
             
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-6 rounded-2xl text-white">
+            <div className="dubai-card bg-gradient-to-br from-orange-500/90 to-amber-600/90 p-8 rounded-3xl text-white shadow-2xl border border-orange-400/20 pulse-glow">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-orange-100 text-sm mb-1">محصولات</p>
-                  <p className="text-2xl font-bold" data-testid="admin-total-products">{(statsData as any)?.totalProducts || 0}</p>
-                  <p className="text-orange-100 text-xs mt-2">+5% از ماه قبل</p>
+                  <p className="text-orange-100 text-sm mb-2 font-medium">📦 محصولات</p>
+                  <p className="text-3xl font-bold" data-testid="admin-total-products">{(statsData as any)?.totalProducts || 0}</p>
+                  <p className="text-orange-100 text-xs mt-3 bg-orange-400/20 px-2 py-1 rounded-full">📈 +5% از ماه قبل</p>
                 </div>
-                <Package className="text-3xl text-orange-200" />
+                <Package className="text-4xl text-orange-200 floating-animation" />
               </div>
             </div>
           </div>

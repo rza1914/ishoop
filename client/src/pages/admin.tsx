@@ -255,7 +255,7 @@ export default function Admin() {
                   <div className="flex justify-between items-start">
                     <div>
                       <p className="text-blue-100 text-sm mb-1">کل فروش</p>
-                      <p className="text-2xl font-bold" data-testid="admin-sales-stat">{statsData.totalSales}</p>
+                      <p className="text-2xl font-bold" data-testid="admin-sales-stat">{(statsData as any)?.totalSales || "۰ تومان"}</p>
                       <p className="text-blue-100 text-xs mt-2">+12% از ماه قبل</p>
                     </div>
                     <BarChart3 className="text-3xl text-blue-200" />
@@ -268,7 +268,7 @@ export default function Admin() {
                   <div className="flex justify-between items-start">
                     <div>
                       <p className="text-green-100 text-sm mb-1">سفارشات</p>
-                      <p className="text-2xl font-bold" data-testid="admin-orders-stat">{statsData.totalOrders.toLocaleString('fa-IR')}</p>
+                      <p className="text-2xl font-bold" data-testid="admin-orders-stat">{((statsData as any)?.totalOrders || 0).toLocaleString('fa-IR')}</p>
                       <p className="text-green-100 text-xs mt-2">+8% از ماه قبل</p>
                     </div>
                     <ShoppingCart className="text-3xl text-green-200" />
@@ -281,7 +281,7 @@ export default function Admin() {
                   <div className="flex justify-between items-start">
                     <div>
                       <p className="text-purple-100 text-sm mb-1">کاربران</p>
-                      <p className="text-2xl font-bold" data-testid="admin-users-stat">{statsData.totalUsers.toLocaleString('fa-IR')}</p>
+                      <p className="text-2xl font-bold" data-testid="admin-users-stat">{((statsData as any)?.totalUsers || 0).toLocaleString('fa-IR')}</p>
                       <p className="text-purple-100 text-xs mt-2">+15% از ماه قبل</p>
                     </div>
                     <Users className="text-3xl text-purple-200" />
@@ -294,7 +294,7 @@ export default function Admin() {
                   <div className="flex justify-between items-start">
                     <div>
                       <p className="text-orange-100 text-sm mb-1">محصولات</p>
-                      <p className="text-2xl font-bold" data-testid="admin-products-stat">{statsData.totalProducts}</p>
+                      <p className="text-2xl font-bold" data-testid="admin-products-stat">{(statsData as any)?.totalProducts || 0}</p>
                       <p className="text-orange-100 text-xs mt-2">+5% از ماه قبل</p>
                     </div>
                     <Package className="text-3xl text-orange-200" />
@@ -330,7 +330,7 @@ export default function Admin() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {products?.map((product) => (
+                      {products ? products.map((product: any) => (
                         <div key={product.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg" data-testid={`product-item-${product.id}`}>
                           <div className="flex items-center space-x-4 space-x-reverse">
                             <img 
@@ -363,7 +363,7 @@ export default function Admin() {
                             </Button>
                           </div>
                         </div>
-                      ))}
+                      )) : null}
                     </div>
                   </CardContent>
                 </Card>
